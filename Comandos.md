@@ -73,101 +73,147 @@ $ docker run -d --name BD -e MYSQL_RANDOM_ROOT_PASSWORD=true mysql
 
 Inspeccionar un contenedor (Fecha de creación, Ip, su estado, volúmenes, puntos de montaje, etc):
 	
-	docker inspect nombre_del_contendor
+```sh
+$docker inspect nombre_del_contendor
+```
+
 ***
 <br>
 
 Si por algun motivo, queremos acceder a la consola de un contenedor que ya esta corriendo, podemos ejecutar lo siguiente:
 
+```sh
+$ docker exec -it id_del_contenedor sh
 ```
-docker exec -it id_del_contenedor bash
-```
->Esto nos deja como root en la consola del contenedor.
+>En este ejemplo, al final se indica el interprete de comandos para el contenedor (`sh`), dependiendo del contenedor también podría aceptar `bash`.
 
-## Logs y Estado
+***
+
+## Logs y estado del contenedor
 
 Ver el log de un contenedor:
 	
-	docker logs nombre_del_contenedor
+```sh
+$ docker logs nombre_del_contenedor
+```
+>Es posible ver el log en tiempo real `logs -f` o entre otras cosas `logs --tail 10` para las últimas 10 líneas
 
 <br>
 
 Ver el estado de un contenedor
 
-	docker top nombre_del_contenedor
+```sh
+$ docker top nombre_del_contenedor
+```
 
 <br>
 
 Mostrar el uso de un contenedor
 
-	docker stats nombre_del_contenedor
+```sh
+$ docker stats nombre_del_contenedor
+```
+
 >Mostrará datos como el uso de CPU, Memoria, IO, etc.
-Si no se especifica el nombre del contenedor, traerá el estado de todos los contenedores.
+Si no se especifica el nombre del contenedor, mostrará el estado de todos los contenedores.
+
+***
 
 ## Mapear puertos
 
-Iniciar un contenedor con un puerto específico, ejemplo sabiendo la imagen "redis" usa el puerto 6379, usarlo a través del puerto 6323
-	
-	docker run -d --name "nombre" -p 6323:6379 redis
+Iniciar un contenedor con un puerto específico, ejemplo conociendo que la imagen "redis" usa el puerto 6379, usarlo a través del puerto 6323
+
+```sh	
+$ docker run -d --name "nombre" -p 6323:6379 redis
+```
 
 <br>
 
-Iniciar un contenedor con un puero aleatorio.
-	
-	docker run -d --name "nombre" -p 6379
+Iniciar un contenedor y mapear un puerto aleatorio.
 
+```sh	
+docker run -d --name "nombre" -p 6379
+```
 <br>
 
 Ver el puerto que tomó el contenedor:
 	
-	docker ps
+```sh
+$ docker ps
+```
 o
 
-	docker port "nombre" 6379
+```sh
+docker port "nombre" 6379
+```
+
 ***
+
 <br>
 
 ## Volúmenes
 
 Al crear un contenedor la información por defecto se almacena dentro del mismo contenedor.
-Por ende, si eliminamos el contenedor, la data guardada se eliminará y al tratar de levantar un nuevo contenedor, no tendrá la data anterior.
-Para esto se puede mapear un volumen o directorio.
-Por ejemplo, si en un contendor que guarda la información en el directorio "/opt/info", lo podemos mapear a un directorio local por ejemplo /var/container/info.
-Con esto si eliminamos el contenedor, la data seguirá existiendo en el S.O en la ruta local /var/container/info y al crear un nuevo contenedor y mapearlo, seguirá ocupando la información de antes.
+Por ende, si eliminamos el contenedor, la data guardada se eliminará y al tratar de levantar un nuevo contenedor, no tendrá la información anterior.
+Para esto se puede `mapear` un volumen o directorio.
+Por ejemplo, si en un contendor que guarda la información en el directorio `/opt/info`, lo podemos mapear a un directorio local por ejemplo `/var/container/info`.
+Con esto si eliminamos el contenedor, la data seguirá existiendo en el S.O en la ruta local `/var/container/info` y al crear un nuevo contenedor y mapearlo, seguirá ocupando la información de antes.
 
-	docker run -d --name "nombre" -v "/var/container/info:/opt/info" nombre_del_contenedor
+```sh
+$ docker run -d --name "nombre" -v "/var/container/info:/opt/info" nombre_del_contenedor
+```
 
 <br>
  
 Los contenedores se ejecutan en background con la opción -d, si a un contenedor se le da un comando para ejecutar, ejecutará la acción y dejará de correr.
 
-#### Ejemplo:
+**Ejemplo:**
 
-	docker run -d --name "nombre" ubuntu ps
-	PID TTY          TIME CMD
-    1 ?        00:00:00 ps
->En este ejemplo se creó un contenedor a partir de la imagen "ubuntu" y se le ordenó ejecutar el comando "ps", luego el contendor dejó de correr.
+```sh
+$ docker run -it --name "nombre" ubuntu ps
+PID TTY        TIME      CMD
+  1   ?        00:00:00  ps
+```
+>En este ejemplo se creó un contenedor a partir de la imagen `ubuntu` y se le ordenó ejecutar el comando `ps`, luego el contendor dejó de correr.
 
 <br>
 
 Para crear un contenedor e ingresar a él, se puede crear de forma interactiva con la opción "-i -t" o "-it". Ejemplo:
 	
-	docker run -it --name "nombre" ubuntu /bash
+```sh
+$ docker run -it --name "nombre" ubuntu bash
+```
+>En este caso el contenedor se creará y podremos ingresar a él, pero al desloguearnos el contendor se detendrá. Para salir de este contenedor sin detenerlo, ya que se inició interactivamente (`-it`), pulsamos las teclas `ctrl + p + q `.
+
+<br>
+
+Crear un contenedor y eliminarlo automáticamente
+
+```sh
+$ docker run --rm -it --name test nginx ps
+PID   USER     TIME   COMMAND
+  1   root     0:00   ps
+```
+>En el ejemplo se crea un contenedor llamado `test`, se le solicita ejecutar `ps` y posteriormente se eliminará.
+
 ***
+
 <br>
 
 
 ## Dockerfile
 
-Dockerfile nos permite crear una imagen en base a una imagen base.
-Dockerfile define varios pasos que se requieren para la creación de una imagen la cual será posteriormente usada para crear un contenedor.
+Dockerfile nos permite crear una imagen personalizada, siempre usando una imagen base.
+Dockerfile es un achivo de texto plano donde se definen varios pasos que se requieren para la creación de una imagen la cual será posteriormente usada para crear un contenedor. 
 
-#### Ejemplo dockerfile:
+**Ejemplo archivo Dockerfile:**
 
-	FROM nginx:1.11-alpine
-	COPY index.html /usr/share/nginx/html/index.html
-	EXPOSE 80
-	CMD ["nginx", "-g", "daemon off;"]
+```yaml
+FROM nginx:1.11-alpine
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 
 <br>
 
@@ -180,20 +226,38 @@ Dockerfile define varios pasos que se requieren para la creación de una imagen 
 
 <br>
 
-Para crear la imagen se ejecuta el comando:
+Si el archivo es llamado `Dockerfile`, la creación de la imagen se ejecuta con el comando:
 
-	docker build -t "nombre_image_nueva"
->La opción `-t` es para poder darle un nombre a la nueva imagen, a su vez, el nombre de la imagen se le puede agregar un "tag" para especificar su versión; mi_imagen:v1
+```sh
+$ docker build -t "NOMBRE_DE_LA_IMAGEN" "PATH_DEL_ARCHIVO"
+Sending build context to Docker daemon  5.12 kB
+Step 1/4 : FROM nginx:1.11-alpine
+ ---> bedece1f06cc
+Step 2/4 : COPY index.html /usr/share/nginx/html/index.html
+ ---> Using cache
+ ---> c5de2891a602
+Step 3/4 : EXPOSE 80
+ ---> Using cache
+ ---> b41f915da8da
+Step 4/4 : CMD nginx -g daemon off;
+ ---> Using cache
+ ---> 489a0f2e27c0
+Successfully built 489a0f2e27c0
+```
+>La opción `-t` es para poder darle un nombre y `tag` a la imagen, por ejemplo para especificar su versión; `mi_imagen:v1`. Si no se especifica el tag, se creará una imagen con su más reciente versión `latest`. 
 
 <br>
 
-Si se quiere agregar una variable al contenedor antes de ejecutarlo, se puede agregar la opción "-e" seguido de la variable y su contenido.
+Si el archivo tiene un nombre distinto a Dockerfile se debe espeficiar el nombre del archivo y su ruta com el parámetro `-f`.
 
-#### Ejemplo:
+```sh
+$ docker build -t MI_IMAGEN:v1 -f opt/Mi_Dockerfile opt/
+```
 
-	docker run -d --name my-production-running-app -e NODE_ENV=production -p 3000:3000 my-image-nodejs-app
+
+<br>
+
 ***
-<br>
 
 ## Dockerignore
 
@@ -206,102 +270,130 @@ Para ignorar archivos o directorios que no se quieran incluir en la imagen a cre
 
 Crear una red docker, una red sirve para generar un puente del cual varios otros contenedores se conectarán y obtendrán ip, además de resolver por el nombre con el que se crearon los contenedores.
 
-#### Ejemplo:
+**Ejemplo:**
 
 Crear una red docker.
-	
-	docker network create backend-network
+
+```sh 	
+$ docker network create backend-network
+```
 
 <br>
 
-Ahora crearemos dos contenedores asociándolos a la red "backend-network" a partir de una imagen "redis".
-	
-	docker run -d --name=redis --net=backend-network redis
-	docker run -d --name=test --net=backend-network redis
+Ahora crearemos dos contenedores asociándolos a la red `backend-network` a partir de una imagen `redis`.
+
+```sh	
+$ docker run -d --name=redis --net=backend-network redis
+$ docker run -d --name=test --net=backend-network redis
+```
 
 <br>
 
-Ambos contenedores están corriendo en background y si creamos un nuevo contenedor que esté dentro del mismo puente y genere un ping a uno de los contenedores "redis" o "test" este deberá responder.
+Ambos contenedores están corriendo en background y si creamos un nuevo contenedor que esté dentro del mismo puente y genere un ping a uno de los contenedores "redis" o "test", este deberá responder.
 
-	docker run --net=backend-network alpine ping -c1 test
-	PING test (172.19.0.3): 56 data bytes
-	64 bytes from 172.19.0.3: seq=0 ttl=64 time=0.069 ms
+```sh
+$ docker run --net=backend-network alpine ping -c1 test
+PING test (172.19.0.3): 56 data bytes
+64 bytes from 172.19.0.3: seq=0 ttl=64 time=0.069 ms
 
-	--- test ping statistics ---
-	1 packets transmitted, 1 packets received, 0% packet loss
-	round-trip min/avg/max = 0.069/0.069/0.069 ms
+--- test ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.069/0.069 ms
+```
 
-Esto sucede porque al crear un contenedor y asociarlo a un puente, se guardará en el resolv.conf de los contenedores un servidores DNS 127.0.0.11. Hacer un ping a "redis" es lo mismo que a "redis.backend-network".
+Esto sucede porque al crear un contenedor y asociarlo a un puente, se guardará en el `resolv.conf` de los contenedores un servidor DNS 127.0.0.11. Hacer un ping a `redis` es lo mismo que a `redis.backend-network`.
 Se pueden crear multiples redes e interconectar contenedores de distintas redes entre si.
 
-#### Ejemplo:
+<br>
+
+**Ejemplo:**
 
 Crearemos una red nueva:
 
-	docker network create frontend-network
+```sh
+$ docker network create frontend-network
+```
 
 <br>
 
-Ahora usaremos el comando "connect" para adjuntar un contenedor ya existente a la nueva red.
+Ahora usaremos el comando `connect` para adjuntar un contenedor ya existente a la nueva red.
 
-	docker network connect frontend-network redis
+```sh
+$ docker network connect frontend-network redis
+```
 
 <br>
 
-Si creamos un nuevo contenedor, web en este caso, y lo adjuntamos a la misma red que se podrá comunicar con la instancia "redis" que se creó anteriormente.
+Si creamos un nuevo contenedor, web en este caso, y lo adjuntamos a la misma red se podrá comunicar con la instancia `redis` que se creó anteriormente.
 
-	docker run -d -p 3000:3000 --net=frontend-network katacoda/redis-node-docker-example
+```sh
+$ docker run -d -p 3000:3000 --net=frontend-network katacoda/redis-node-docker-example
+```
 
 <br>
 
 Consultamos con curl:
-	
-	curl docker:3000
+
+```sh	
+$ curl docker:3000
+```
 
 <br>
 
 Las redes se pueden listar y al igual que un contenedor se puede inspeccionar con los comandos:
 
-	docker network list
-	docker network inspect "nombre_de_la_red"
+```sh
+$ docker network list
+```
+
+```sh	
+$ docker network inspect "nombre_de_la_red"
+```
 
 <br>
 
 Con docker network se puede proporcionar un alias a los contenedores, para tener una entrada DNS extra.
-Por ejemplo crearemos una nueva red y le conectaremos nuestro contenedor llamado "redis" con el alias "db".
+Por ejemplo crearemos una nueva red y le conectaremos nuestro contenedor llamado `redis` con el alias `db`.
 
-	docker network create frontend-network2
-	docker network connect --alias db frontend-network2 redis
+```sh
+$ docker network create frontend-network2
+$ docker network connect --alias db frontend-network2 redis
+```
 
 <br>
 
 Si inspeccionamos el contenedor redis veremos que aparte del id que le entrega docker, también tiene el alias "db" que le proporcionamos con docker network.
 
-	docker inspect redis
-	--> Salida
-	"frontend-network2": {
-                    "IPAMConfig": {},
-                    "Links": null,
-                    "Aliases": [
-                        "db",
-                        "b2e0316bee85"
-                    ],
+```sh
+$ docker inspect redis
+--> Salida
+"frontend-network2": {
+                   "IPAMConfig": {},
+                   "Links": null,
+                   "Aliases": [
+                       "db",
+                       "b2e0316bee85"
+                   ],
+```
 
 <br>
 
 Ahora si creamos un contenedor alpine con la nueva red y hacemos un ping al alias responderá correctamente.
 
-	$ docker run --net=frontend-network2 alpine ping -c1 db
-	PING db (172.21.0.2): 56 data bytes
-	64 bytes from 172.21.0.2: seq=0 ttl=64 time=0.084 ms
+```sh
+$ docker run --net=frontend-network2 alpine ping -c1 db
+PING db (172.21.0.2): 56 data bytes
+64 bytes from 172.21.0.2: seq=0 ttl=64 time=0.084 ms
 
-	--- db ping statistics ---
-	1 packets transmitted, 1 packets received, 0% packet loss
-	round-trip min/avg/max = 0.084/0.084/0.084 ms	
-
+--- db ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 0.084/0.084/0.084 ms	
+```
 <br>
 
 De la misma forma en que se conectan contenedores a una red, también se pueden desconectar.
-El siguiente ejemplo muestra como desconectar el contenedor "redis" de la red fronend-network.
+El siguiente ejemplo muestra como desconectar el contenedor `redis` de la red `fronend-network`.
 
-	docker network disconnect frontend-network redis
+```sh
+$ docker network disconnect frontend-network redis
+```
