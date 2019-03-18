@@ -15,7 +15,7 @@ Docker es un proyecto Opensource que permite desplegar aplicaciones en contenedo
 +++
 @title[Estructura Docker]
 #### Estructura Docker
-<p align="center"><img src="https://raw.githubusercontent.com/coneking/charla_kube/dia1/images/docker.png" width="600" /></p>
+<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/docker.png" width="600" /></p>
 
 ---
 @title[Contenedores]
@@ -28,14 +28,14 @@ Es una tecnología de virtualización que se basa en la ejecución de instancias
 +++
 @title[Ejemplo Contenedor]
 #### Ejemplo de contenedor
-<p align="center"><img src="https://raw.githubusercontent.com/coneking/charla_kube/dia1/images/container.png" width="500" /></p>
+<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/container.png" width="500" /></p>
 [DockerHub](https://hub.docker.com/)
 
 
 +++
 @title[Contenedor vs Virtual Machine]
 #### Contenedor vs Máquinas Virtuales
-<p align="center"><img src="https://raw.githubusercontent.com/coneking/charla_kube/dia1/images/vm-vs-container.png" width="800" /></p>
+<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/vm-vs-container.png" width="800" /></p>
 
 ---
 @title[Componentes]
@@ -51,7 +51,7 @@ Es una tecnología de virtualización que se basa en la ejecución de instancias
 +++
 @title[Información]
 
-Más información sobre [Componentes Docker](https://github.com/coneking/docker#componentes-de-docker)
+Más información sobre [Componentes Docker](https://gitlab.cencosud.com/SConejer/charla_kube/tree/dia1)
 
 ---
 @title[Ejemplo]
