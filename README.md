@@ -1,3 +1,1 @@
-# charla_kube
-
-Capacitación Kubernetes
+# Capacitación Kubernetes por Gitpitch
