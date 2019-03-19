@@ -132,7 +132,7 @@ $ docker run -d --name "nombre" -p 6323:6379 redis
 Iniciar un contenedor y mapear un puerto aleatorio.
 
 ```sh	
-docker run -d --name "nombre" -p 6379
+docker run -d --name "nombre" -p 6379 nombre_de_la_imagen
 ```
 <br>
 
@@ -160,7 +160,7 @@ Por ejemplo, si en un contendor que guarda la información en el directorio `/op
 Con esto si eliminamos el contenedor, la data seguirá existiendo en el S.O en la ruta local `/var/container/info` y al crear un nuevo contenedor y mapearlo, seguirá ocupando la información de antes.
 
 ```sh
-$ docker run -d --name "nombre" -v "/var/container/info:/opt/info" nombre_del_contenedor
+$ docker run -d --name "nombre" -v "/var/container/info:/opt/info" nombre_de_la_imagen
 ```
 
 <br>
