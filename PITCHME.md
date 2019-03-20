@@ -106,7 +106,7 @@ Es un proyecto Open Source que permite implementar un cluster de kubernetes en B
 
 La plataforma de Cluster Kubernetes se implementara sobre infraestructura **VMWare** y se deplegara de la siguiente forma:
 
-3 Nodos Etcd (https://kubernetes.io/docs/setup/cluster-large/#etcd-storage)
+- 3 Nodos Etcd [info](https://kubernetes.io/docs/setup/cluster-large/#etcd-storage) |
 4 Nodos Master (https://kubernetes.io/docs/setup/cluster-large/#size-of-master-and-master-components)
 N+1 Nodos Worker
 1 Nodo de Deployment (Administración)
