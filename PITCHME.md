@@ -79,7 +79,8 @@ Se encarga de realizar `forwarding` de conexiones TCP o UDP para exponer Service
 
 Más información sobre [Conceptos Kubernetes](https://kubernetes.io/docs/concepts/)
 
-
+---?image=images/kubespray-logo.png&size=auto 40%
+@title[Inicio]
 
 ---
 @title[Introducción Kubespray]
