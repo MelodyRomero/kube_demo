@@ -93,12 +93,12 @@ Es un proyecto Open Source que permite implementar un cluster de kubernetes en B
 
 **Kubespray** tiene soporte para las siguientes versiones de sistema operativo:
 
-Container Linux by CoreOS
-Debian Jessie, Stretch, Wheezy
-Ubuntu 16.04, 18.04
-CentOS/RHEL 7
-Fedora/CentOS Atomic
-openSUSE Leap 42.3/Tumbleweed
+- Container Linux by CoreOS |
+- Debian Jessie, Stretch, Wheezy |
+- Ubuntu 16.04, 18.04 |
+- CentOS/RHEL 7 |
+- Fedora/CentOS Atomic |
+- openSUSE Leap 42.3/Tumbleweed |
 
 ---
 @title[Infraestructura]
