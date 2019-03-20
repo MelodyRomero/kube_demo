@@ -11,7 +11,7 @@ Se encarga del despliegue, la mantención y la escalabilidad de las aplicaciones
 
 ---
 @title[Historia]
-<p align="center"><img src="https://raw.githubusercontent.com/coneking/charla_kube/develop/images/googlelogo.png" width="500" /></p>
+<p align="center"><img src="http://gitlab/SConejer/charla_kube/raw/dia3/images/googlelogo.png" width="500" /></p>
 
 Desarrollado originalmente por Google en 2014 y liberado en el 2015 para la Cloud Native Computing Foundation es actualmente utilizado por grandes compañías como **Redhat**, **IBM**, **CoreOS**, **SAP** entre otras.
 
@@ -278,7 +278,7 @@ nginx-deployment-test-6c54bd5869   2         2         2         4h
 Es el objeto API que gestiona el acceso a los servicios de un cluster mediante reglas.
 Negocia la comunicación del usuario con un servicio dentro del cluster Kubernetes.
 
-<p align="center"><img src="https://raw.githubusercontent.com/coneking/charla_kube/develop/images/ingress.png" width="500" /></p>
+<p align="center"><img src="http://gitlab/SConejer/charla_kube/raw/dia3/images/ingress.png" width="500" /></p>
 
 +++
 @title[Ejemplo Ingress]
