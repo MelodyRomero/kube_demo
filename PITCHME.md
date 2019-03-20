@@ -1,7 +1,6 @@
 ---?image=images/kubernetes.png&size=auto
 @title[Inicio]
 
----
 ---?image=images/kubespray-logo.png&size=auto
 @title[Kubespray]
 
