@@ -268,7 +268,48 @@ ingress_nginx_configmap:
   proxy-send-timeout: "240"                   
   worker-shutdown-timeout: 3600s              
 ```
++++
+@title[Configuracion_6]
 
+En el archivo `inventory/mycluster/group_vars/all/all.yml` realizamos los siguientes cambios para habilitar nuestro Loadbalancer y cloud provider con vspher.
+
+- **External LB example config**
+```yaml
+apiserver_loadbalancer_domain_name: "k8s.mydomain.com"      
+loadbalancer_apiserver:                                         
+  address: 10.10.1.130                                         
+  port: 6443                                                     
+```
+>**Nota:** `apiserver_loadbalancer_domain_name` es el nombre otorgado para el balanceador HAProxy.
+
+>**Nota2:** `address` es la dirección IP apartada para el balanceador HAProxy.
+
+<br>
+
+- **Internal loadbalancers for apiservers**
+```yaml
+loadbalancer_apiserver_localhost: false 
+```
+
++++
+@title[Cloud]
+
+- **cloud_provider:**
+```yaml
+cloud_provider: vsphere                             
+vsphere_vcenter_ip: "DIRECCION IP O HOST_VCENTER"    
+vsphere_vcenter_port: 443                           
+vsphere_insecure: 1                                 
+vsphere_user: "USUARIO VCENTER"           
+vsphere_password: "PASSWORD VICENTER"                        
+vsphere_datacenter: "NOMBRE DATACENTER"                  
+vsphere_datastore: "NOMBRE_DATASTORE"      
+vsphere_working_dir: "DIRECTORIO DE TRABAJO DATASTORE"                    
+vsphere_scsi_controller_type: "TIPO CONTROLADORA"              
+vsphere_public_network: "NOMBRE VLAN CONEXION"              
+```
+
+[Referencia Vsphere](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/vsphere.md)
 
 ---
 @title[Gracias]
