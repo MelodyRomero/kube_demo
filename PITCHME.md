@@ -192,6 +192,23 @@ ansible_user=root # Usuario de conexión
 ansible_password=S3cuRe_P4sS # Contraseña de conexión
 # ansible_ssh_private_key_file=/roo/.ssh/id_rsa #Llave de confianza
 ```
+[Referencia Inventario](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)
+
+---
+@title[Configuracion]
+## Configuración de cluster
+
+De la configuración por defecto que trae Kubespray realizaremos los siguientes cambios para una instalación más personalizada de acuerdo a nuestra infraestructura y para la integración con VMWare para cloud provider.
+
++++
+@title[Configuracion_1]
+
+En el archivo `inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml` realizaremos los siguientes cambios
+
+- **Kube-proxy proxyMode configuration.**
+```yaml
+kube_proxy_mode: iptables
+```
 
 ---
 @title[Gracias]
