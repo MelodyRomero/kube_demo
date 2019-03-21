@@ -280,11 +280,10 @@ loadbalancer_apiserver:
   address: 10.10.1.130                                         
   port: 6443                                                     
 ```
->**Nota:** `apiserver_loadbalancer_domain_name` es el nombre otorgado para el balanceador HAProxy.
+**Nota:** `apiserver_loadbalancer_domain_name` es el nombre otorgado para el balanceador HAProxy.
 
->**Nota2:** `address` es la dirección IP apartada para el balanceador HAProxy.
+**Nota2:** `address` es la dirección IP apartada para el balanceador HAProxy.
 
-<br>
 
 - **Internal loadbalancers for apiservers**
 ```yaml
