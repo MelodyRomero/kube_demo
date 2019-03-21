@@ -254,7 +254,7 @@ Si el archivo tiene un nombre distinto a Dockerfile se debe espeficiar el nombre
 $ docker build -t MI_IMAGEN:v1 -f opt/Mi_Dockerfile opt/
 ```
 
-
+test
 <br>
 
 ***
