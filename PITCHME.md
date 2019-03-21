@@ -283,10 +283,9 @@ loadbalancer_apiserver:
   address: 10.10.1.130                                         
   port: 6443                                                     
 ```
-**Nota:** `apiserver_loadbalancer_domain_name` es el nombre otorgado para el balanceador HAProxy.
+`apiserver_loadbalancer_domain_name` es el nombre otorgado para el balanceador HAProxy.
 
-**Nota2:** `address` es la dirección IP apartada para el balanceador HAProxy.
-
+`address` es la dirección IP apartada para el balanceador HAProxy.
 
 ### Internal loadbalancers for apiservers
 ```yaml
@@ -296,7 +295,8 @@ loadbalancer_apiserver_localhost: false
 +++
 @title[Cloud]
 
-- **cloud_provider:**
+### Cloud_provider
+
 ```yaml
 cloud_provider: vsphere                             
 vsphere_vcenter_ip: "DIRECCION IP O HOST_VCENTER"    
@@ -310,8 +310,103 @@ vsphere_working_dir: "DIRECTORIO DE TRABAJO DATASTORE"
 vsphere_scsi_controller_type: "TIPO CONTROLADORA"              
 vsphere_public_network: "NOMBRE VLAN CONEXION"              
 ```
-
 [Referencia Vsphere](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/vsphere.md)
+
+---
+@title[PlayBook]
+
+### Instalación
+
+Una vez el inventario con los nodos está configurado y los archivos necesarios para la instalación fueron ajustados de acuerdo a la infraestructura del cluster, ya es posible ejecutar la instalación de kubernetes. 
+
++++
+@title[Ansible]
+
+### Ejemplo
+
+```sh
+$ ansible-playbook -i inventory/mycluster/hosts.ini cluster.yml -b -v --private-key=~/.ssh/private_key
+```
+**Nota:** Se pasa el parámetro `--private-key` en el caso de que no se haya especificado la llave de confianza en el inventario.
+
++++
+@title[Salida]
+
+#### Salida
+
+```sh
+Using /opt/kubespray/k8sopcl_kubespray/kubespray-2.8.3/ansible.cfg as config file
+
+PLAY [localhost] *************************************************************************************************************************************
+
+TASK [Check ansible version !=2.7.0] *****************************************************************************************************************
+Friday 01 March 2019  16:54:29 -0300 (0:00:00.091)       0:00:00.091 ******* 
+ok: [localhost] => {
+    "changed": false, 
+    "msg": "All assertions passed"
+}
+
+PLAY [localhost] *************************************************************************************************************************************
+
+TASK [deploy warning for non kubeadm] ****************************************************************************************************************
+Friday 01 March 2019  16:54:29 -0300 (0:00:00.075)       0:00:00.166 ******* 
+
+TASK [deploy cluster for non kubeadm] ****************************************************************************************************************
+Friday 01 March 2019  16:54:29 -0300 (0:00:00.032)       0:00:00.199 ******* 
+ [WARNING]: Could not match supplied host pattern, ignoring: bastion
+
+
+PLAY [bastion[0]] ************************************************************************************************************************************
+skipping: no hosts matched
+ [WARNING]: Could not match supplied host pattern, ignoring: calico-rr
+
+
+PLAY [k8s-cluster:etcd:calico-rr] ********************************************************************************************************************
+
+...
+....
+.....
+
+TASK [kubernetes-apps/cloud_controller/oci : OCI Cloud Controller | Apply Controller Manifest] *******************************************************
+Friday 01 March 2019  16:45:06 -0300 (0:00:00.255)       0:23:50.234 ******* 
+
+PLAY RECAP *******************************************************************************************************************************************
+nodo-etcd01              : ok=214  changed=51   unreachable=0    failed=0   
+nodo-etcd02             : ok=208  changed=48   unreachable=0    failed=0   
+nodo-etcd03         	: ok=207  changed=48   unreachable=0    failed=0   
+nodo-master01             : ok=383  changed=108  unreachable=0    failed=0   
+nodo-master02              : ok=311  changed=86   unreachable=0    failed=0   
+nodo-worker01             : ok=273  changed=71   unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+
+Friday 01 March 2019  16:45:07 -0300 (0:00:00.134)       0:23:50.369 ******* 
+=============================================================================== 
+kubernetes/master : kubeadm | Initialize first master --------------------------------------------------------------------------------------- 104.68s
+container-engine/docker : ensure docker packages are installed ------------------------------------------------------------------------------- 88.59s
+kubernetes/master : kubeadm | Init other uninitialized masters ------------------------------------------------------------------------------- 77.32s
+bootstrap-os : Install pip for bootstrap ----------------------------------------------------------------------------------------------------- 57.93s
+kubernetes/preinstall : Update package management cache (YUM) -------------------------------------------------------------------------------- 42.22s
+download : file_download | Download item ----------------------------------------------------------------------------------------------------- 37.44s
+download : container_download | Download containers if pull is required or told to always pull (all nodes) ----------------------------------- 36.00s
+kubernetes/preinstall : Install packages requirements ---------------------------------------------------------------------------------------- 35.18s
+kubernetes/master : Master | wait for the apiserver to be running ---------------------------------------------------------------------------- 18.05s
+download : container_download | Download containers if pull is required or told to always pull (all nodes) ----------------------------------- 17.83s
+etcd : Gen_certs | Write etcd master certs --------------------------------------------------------------------------------------------------- 17.30s
+download : container_download | Download containers if pull is required or told to always pull (all nodes) ----------------------------------- 14.65s
+bootstrap-os : Install packages requirements for bootstrap ----------------------------------------------------------------------------------- 14.17s
+container-engine/docker : Ensure old versions of Docker are not installed. | RedHat ---------------------------------------------------------- 13.58s
+kubernetes/master : kubeadm | write out kubeadm certs ---------------------------------------------------------------------------------------- 11.07s
+etcd : reload etcd --------------------------------------------------------------------------------------------------------------------------- 11.03s
+kubernetes-apps/ansible : Kubernetes Apps | Lay Down CoreDNS Template ------------------------------------------------------------------------ 10.99s
+gather facts from all instances -------------------------------------------------------------------------------------------------------------- 10.35s
+container-engine/docker : Docker | pause while Docker restarts ------------------------------------------------------------------------------- 10.28s
+kubernetes-apps/ingress_controller/ingress_nginx : NGINX Ingress Controller | Create manifests ------------------------------------------------ 9.96s
+
+```
+
+
+
+
 
 ---
 @title[Gracias]
