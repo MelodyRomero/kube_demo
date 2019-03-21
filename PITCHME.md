@@ -213,12 +213,24 @@ kube_proxy_mode: iptables
 +++
 @title[Configuracion_2]
 
-En el archivo `inventory/mycluster/group_vars/k8s-cluster/addons.yml` realizamos los siguientes cambios:
+En el archivo `inventory/mycluster/group_vars/k8s-cluster/addons.yml` realizamos los siguientes cambios en los componentes:
+
+
+
+- **Helm** |
+- **Metrics Server** |
+- **Nginx ingress controller** |
+
++++
+@title[Configuracion_3]
 
 - **Helm deployment**
 ```yaml
 helm_enabled: true
 ```
+
++++
+@title[Configuracion_4]
 
 - **Metrics Server deployment**
 ```yaml
@@ -227,6 +239,9 @@ metrics_server_kubelet_insecure_tls: true
 metrics_server_metric_resolution: 60s
 metrics_server_kubelet_preferred_address_types: "InternalIP"
 ```
+
++++
+@title[Configuracion_5]
 
 - **Nginx ingress controller deployment**
 ```yaml
@@ -252,6 +267,7 @@ ingress_nginx_configmap:
   proxy-send-timeout: "240"                   
   worker-shutdown-timeout: 3600s              
 ```
+
 
 ---
 @title[Gracias]
