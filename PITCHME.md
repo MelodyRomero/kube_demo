@@ -152,10 +152,12 @@ Copiaremos todo el contenido del directorio para crear una configuración person
 ```sh
 $ cp -r inventory/sample inventory/mycluster
 ```
-Modificaremos el archivo `inventory/sample/hosts.ini` con la información de los servidores del cluster.
+
 
 +++
-title[Inventario-Ejemplo]
+@title[Inventario-Ejemplo]
+
+Modificaremos el archivo `inventory/sample/hosts.ini` con la información de los servidores del cluster.
 
 ```yaml
 [all]
