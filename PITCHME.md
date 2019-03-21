@@ -117,7 +117,8 @@ La plataforma de Cluster Kubernetes se implementara sobre infraestructura **VMWa
 ![infra](images/infra.png)
 
 
-
+---
+@title[Pruebas]
 ---
 @title[Gracias]
 
