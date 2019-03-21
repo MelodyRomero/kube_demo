@@ -396,5 +396,4 @@ El siguiente ejemplo muestra como desconectar el contenedor `redis` de la red `f
 
 ```sh
 $ docker network disconnect frontend-network redis
-```
 <br>
