@@ -271,9 +271,12 @@ ingress_nginx_configmap:
 +++
 @title[Configuracion_6]
 
-En el archivo `inventory/mycluster/group_vars/all/all.yml` realizamos los siguientes cambios para habilitar nuestro Loadbalancer y cloud provider con vspher.
+En el archivo `inventory/mycluster/group_vars/all/all.yml` realizamos los siguientes cambios para habilitar nuestro Loadbalancer y cloud provider con vsphere.
 
-- **External LB example config**
++++
+@title[Configuracion_7]
+
+### External LB example config
 ```yaml
 apiserver_loadbalancer_domain_name: "k8s.mydomain.com"      
 loadbalancer_apiserver:                                         
@@ -285,7 +288,7 @@ loadbalancer_apiserver:
 **Nota2:** `address` es la dirección IP apartada para el balanceador HAProxy.
 
 
-- **Internal loadbalancers for apiservers**
+### Internal loadbalancers for apiservers
 ```yaml
 loadbalancer_apiserver_localhost: false 
 ```
