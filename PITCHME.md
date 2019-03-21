@@ -57,7 +57,7 @@ Se componen de los servicios `kubelet`, `container runtime` y `proxy`.
 
 +++
 @title[Kubelet]
-## Kubelet 
+## Kubelet
 
 Verifica que los contendores que forman parte del POD estén en ejecución.
 Solo administra contenedores creados por Kubernetes.
@@ -102,9 +102,9 @@ Es un proyecto Open Source que permite implementar un cluster de kubernetes en B
 
 ---
 @title[Infraestructura]
-## Infraestructura Escalable
+### Infraestructura On-Premise
 
-La plataforma de Cluster Kubernetes se implementara sobre infraestructura **VMWare** y se deplegara de la siguiente forma:
+La plataforma de Cluster Kubernetes de Cencosud se implementara sobre infraestructura **VMWare** y se deplegara de la siguiente forma:
 
 - 3 Nodos Etcd |
 - 4 Nodos Master |
@@ -118,7 +118,79 @@ La plataforma de Cluster Kubernetes se implementara sobre infraestructura **VMWa
 
 
 ---
-@title[Pruebas]
+@title[Descarga]
+### Descarga de Kubespray
+
+GitHub:
+https://github.com/kubernetes-sigs/kubespray
+
+Releases:
+https://github.com/kubernetes-sigs/kubespray/releases
+
++++
+@title[Accion]
+```
+$ mkdir /opt/kubespray
+$ cd /opt/kubespray
+$ wget https://github.com/kubernetes-sigs/kubespray/archive/v2.8.3.tar.gz -O - | tar -xz
+$ cd kubespray-2.8.3
+$ ls
+ansible.cfg         CONTRIBUTING.md  inventory  mitogen.yaml    RELEASE.md        roles              setup.cfg            Vagrantfile
+cluster.yml         Dockerfile       library    OWNERS          remove-node.yml   scale.yml          setup.py
+code-of-conduct.md  docs             LICENSE    OWNERS_ALIASES  requirements.txt  scripts            tests
+contrib             extra_playbooks  Makefile   README.md       reset.yml         SECURITY_CONTACTS  upgrade-cluster.yml
+
+```
++++
+@title[Inventario]
+### Configuración de Inventario
+
+Para la instalación del cluster es necesario declarar un inventario donde se definan los servidores que cumplirán con los roles de **ETCD**, **MASTER** y **WORKER**.<br>
+Por defecto Kubespray tiene un ejemplo de este inventario en el directorio`inventory/sample`. <br>
+Copiaremos todo el contenido del directorio para crear una configuración personalizada.
+
+```sh
+$ cp -r inventory/sample inventory/mycluster
+```
+Modificaremos el archivo `inventory/sample/hosts.ini` con la información de los servidores del cluster.
+
++++
+title[Inventario-Ejemplo]
+
+```yaml
+[all]
+nodo-etcd01 ip=10.10.1.2 etcd_member_name=etcd1
+nodo-etcd02 ip=10.10.1.3 etcd_member_name=etcd2
+nodo-etcd03 ip=10.10.1.4 etcd_member_name=etcd3
+nodo-master01 ip=10.10.1.5
+nodo-master02 ip=10.10.1.6
+nodo-worker01 ip=10.10.1.7
+
+# Todos los nodos de role MASTER
+[kube-master]
+nodo-master01
+nodo-master02
+
+# Todos los nodos de role ETCD
+[etcd]
+nodo-etcd01
+nodo-etcd02
+nodo-etcd03
+
+# Todos los nodos de role WORKER
+[kube-node]
+nodo-worker01
+
+[k8s-cluster:children]
+kube-master
+kube-node
+
+[all:vars]
+ansible_user=root # Usuario de conexión
+ansible_password=S3cuRe_P4sS # Contraseña de conexión
+# ansible_ssh_private_key_file=/roo/.ssh/id_rsa #Llave de confianza
+```
+
 ---
 @title[Gracias]
 
