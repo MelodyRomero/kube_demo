@@ -141,7 +141,7 @@ code-of-conduct.md  docs             LICENSE    OWNERS_ALIASES  requirements.txt
 contrib             extra_playbooks  Makefile   README.md       reset.yml         SECURITY_CONTACTS  upgrade-cluster.yml
 
 ```
-+++
+---
 @title[Inventario]
 ### Configuración de Inventario
 
