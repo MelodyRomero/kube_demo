@@ -192,11 +192,11 @@ ansible_user=root # Usuario de conexión
 ansible_password=S3cuRe_P4sS # Contraseña de conexión
 # ansible_ssh_private_key_file=/roo/.ssh/id_rsa #Llave de confianza
 ```
-[Referencia Inventario](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)
+
 
 ---
 @title[Configuracion]
-## Configuración de cluster
+### Configuración de cluster
 
 De la configuración por defecto que trae Kubespray realizaremos los siguientes cambios para una instalación más personalizada de acuerdo a nuestra infraestructura y para la integración con VMWare para cloud provider.
 
@@ -208,6 +208,49 @@ En el archivo `inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml` reali
 - **Kube-proxy proxyMode configuration.**
 ```yaml
 kube_proxy_mode: iptables
+```
+
++++
+@title[Configuracion_2]
+
+En el archivo `inventory/mycluster/group_vars/k8s-cluster/addons.yml` realizamos los siguientes cambios:
+
+- **Helm deployment**
+```yaml
+helm_enabled: true
+```
+
+- **Metrics Server deployment**
+```yaml
+metrics_server_enabled: true
+metrics_server_kubelet_insecure_tls: true
+metrics_server_metric_resolution: 60s
+metrics_server_kubelet_preferred_address_types: "InternalIP"
+```
+
+- **Nginx ingress controller deployment**
+```yaml
+ingress_nginx_enabled: true                   
+ingress_nginx_host_network: false             
+ingress_nginx_nodeselector:                   
+  node-role.kubernetes.io/master: ""          
+ingress_nginx_tolerations:                    
+  - key: "node-role.kubernetes.io/master"     
+    effect: "NoSchedule"                      
+ingress_nginx_namespace: "kube-ingress"       
+ingress_nginx_insecure_port: 80               
+ingress_nginx_secure_port: 443                
+ingress_nginx_configmap:                      
+  map-hash-bucket-size: "128"                 
+  ssl-protocols: "SSLv2"                      
+  access-log-path: /dev/stdout                
+  enable-vts-status: "true"                   
+  error-log-level: warn                       
+  error-log-path: /dev/stdout                 
+  proxy-connect-timeout: "240"                
+  proxy-read-timeout: "240"                   
+  proxy-send-timeout: "240"                   
+  worker-shutdown-timeout: 3600s              
 ```
 
 ---
