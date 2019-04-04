@@ -1,5 +1,9 @@
 # Kubectl comandos
 
+[Documentación kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/)
+
+<br>
+
 ## Información de configuración
 
 Consultar por los cluster del archivo `config`
