@@ -1,9 +1,9 @@
 # Práctica
 
-* Buscar y descargar una imagen nginx
-* Iniciar un contenedor
-* Verificar su estado y si es visible (web)
-* Eliminar solo el contenedor
+- [Buscar y descargar una imagen nginx](#buscar y descargar una imagen nginx)
+- [Iniciar un contenedor](#iniciar un contenedor)
+- [Verificar su estado y si es visible](#verificar su estado y si es visible)
+- [Eliminar solo el contenedor](#eliminar solo el contenedor)
 
 <br>
 
