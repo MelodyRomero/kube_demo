@@ -117,3 +117,105 @@ Eliminando el contenedor
 $ docker rm test_web
 test_web
 ```
+
+<br>
+
+---
+
+# Práctica 2
+
+- [Iniciar un contenedor apache](#iniciar-un-contenedor-apache)
+- [Editar el contenedor](#editar-el-contenedor)
+- [Crear una imagen usando el contenedor](#crear-una-imagen-usando-el-contenedor)
+- [Iniciar un contenedor con la nueva imagen](#iniciar-un-contenedor-con-la-nueva-imagen)
+- [Eliminar el contenedor y la imagen](#eliminar-el-contenedor-y-la-imagen)
+
+<br>
+
+## Iniciar un contenedor apache
+
+Iniciando contenedor httpd
+
+```sh
+$ docker run -d --name prueba httpd
+Unable to find image 'httpd:latest' locally
+Trying to pull repository docker.io/library/httpd ... 
+latest: Pulling from docker.io/library/httpd
+27833a3ba0a5: Already exists 
+7df2f4a2bf95: Pull complete 
+bbda6f884d14: Pull complete 
+4d3dcf503f89: Pull complete 
+b2f11da8a23e: Pull complete 
+Digest: sha256:b4096b744d92d1825a36b3ace61ef4caa2ba57d0307b985cace4621139c285f7
+Status: Downloaded newer image for docker.io/httpd:latest
+5d9fd858c551ca587532fc06dbe6a6664e15c6293388d97eceebfe3c09b30e79
+```
+
+<br>
+
+## Editar el contenedor
+
+Creando un archivo index y reemplazar el original del contenedor
+
+```sh
+$ echo "PRUEBA PRACTICA 2" > index.html; docker cp index.html prueba:/usr/local/apache2/htdocs/
+```
+
+<br>
+
+## Crear una imagen usando el contenedor
+
+```sh
+$ docker commit prueba apache_custom
+sha256:9f856e4f6dc031c5407e02a5b3717340cedc6708be33a630b62d9a072dd98d2d
+```
+
+<br>
+
+Verificar la imagen creada
+
+```sh
+$ docker images apache_custom
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+apache_custom       latest              9f856e4f6dc0        About a minute ago   132 MB
+```
+
+<br>
+
+## Iniciar un contenedor con la nueva imagen
+
+```sh
+$ docker run -d --name nuevo_apache apache_custom
+11734c7b4ec874064f9ab548765d2e3665241a879280c53c679f821dbc193b42
+```
+
+<br>
+
+Comprobar el archivo index.html
+
+```sh
+$ docker exec -it nuevo_apache cat /usr/local/apache2/htdocs/index.html
+PRUEBA PRACTICA 2
+```
+
+<br>
+
+## Eliminar el contenedor y la imagen
+
+Eliminando el contenedor
+
+```sh
+$ docker rm -f nuevo_apache
+nuevo_apache
+```
+
+<br>
+
+Eliminando la imagen `apache_custom`
+
+```sh
+$ docker rmi apache_custom
+Untagged: apache_custom:latest
+Deleted: sha256:9f856e4f6dc031c5407e02a5b3717340cedc6708be33a630b62d9a072dd98d2d
+Deleted: sha256:e1154ce8e72f8fd467cd00399922d7ab3329a340c33a70e9c5f1e7dd04d93dac
+```
