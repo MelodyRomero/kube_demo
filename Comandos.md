@@ -57,7 +57,7 @@ $ docker run -d nombre_de_la_imagen
 Iniciar un contenedor, dejarlo activo y darle un nombre:
 	
 ```sh
-docker run -d --name "nombre" nombre_de_la_imagen
+$ docker run -d --name "nombre" nombre_de_la_imagen
 ```
 
 <br>
@@ -74,7 +74,7 @@ $ docker run -d --name BD -e MYSQL_RANDOM_ROOT_PASSWORD=true mysql
 Inspeccionar un contenedor (Fecha de creación, Ip, su estado, volúmenes, puntos de montaje, etc):
 	
 ```sh
-$docker inspect nombre_del_contendor
+$ docker inspect nombre_del_contendor
 ```
 
 ***
@@ -132,7 +132,7 @@ $ docker run -d --name "nombre" -p 6323:6379 redis
 Iniciar un contenedor y mapear un puerto aleatorio.
 
 ```sh	
-docker run -d --name "nombre" -p 6379 nombre_de_la_imagen
+$ docker run -d --name "nombre" -p 6379 nombre_de_la_imagen
 ```
 <br>
 
@@ -144,7 +144,7 @@ $ docker ps
 o
 
 ```sh
-docker port "nombre" 6379
+$ docker port "nombre del contenedor" 
 ```
 
 ***
