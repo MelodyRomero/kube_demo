@@ -1,92 +1,70 @@
-# Docker
+# Kubernetes
 
-## ¿Qué es Docker?
+## Kubectl
 
-Docker es un proyecto Opensource que permite desplegar aplicaciones en contenedores. Gestiona la creación y administración de contenedores.
+Para administrar Kubernetes utilizamos el comando `kubectl`, el cual interactúa con el cluster Kubernetes.
+Más información sobre el comando [Kubectl](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/docker.png" width="500" /></p>
+### Syntaxis
+
+```sh
+$ kubectl [command] [TYPE] [NAME] [flags]
+```
+<br>
+
+Ejemplo
+
+Listar los nodos del cluster
+
+```sh
+$ kubectl get nodes
+NAME           STATUS                     ROLES     AGE       VERSION
+nodo1          Ready,SchedulingDisabled   master    20d       v1.10.2
+nodo2          Ready                      worker    20d       v1.10.2
+nodo3          Ready                      worker    20d       v1.10.2
+```
 
 <br>
 
-## ¿Qué son los contenedores?
+Listar los pods del namespace `default`
 
-Los contenedores son una tecnología de virtualización que se basa en la ejecución de instancias de sistemas operativos desde un servidor (host) físico.
-Los contenedores utilizan las librerías, binarios, dependencias y recursos del host local. Usan una imagen base para su creación.
-
-<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/container.png" width="500" /></p>
-
-<br>
-
->**Nota**: Las imagenes de los contenedores están disponibles oficialmente en https://hub.docker.com/
+```sh
+$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+golang-test-7759c599dc-x4f66   1/1     Running   0          22h
+hello-56d89fcd87-rgrs7         1/1     Running   0          22h
+```
 
 <br>
 
-## Contenedores VS Máquinas virtuales.
+---
 
-Los contenedores a diferencia de las máquinas virtuales corren bajo un sólo kernel, el del host donde se están ejecutando, así como sus binarios y librerías.
-Por otra parte, las máquinas virtuales necesitan la instalación de un Sistema Operativo por cada una de ellas, además de algún Hypervisor que soporte multiples kernel para cada máquina virtual.
+## Instalación Kubectl
 
-<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/vm-vs-container.png" width="500" /></p>
+### Windows (chocolatey)
 
-<br>
+Ejecutar desde PowerShell o CMD
 
-## Componentes de Docker
-
-- [Docker Daemon](#docker-daemon)
-- [Docker Client](#docker-client)
-- [Docker Image](#docker-image)
-- [Docker Hub](#docker-hub)
-- [Dockerfile](#dockerfile)
-- [Docker Container](#docker-container)
-- [Docker Registry](#docker-registry)
-- [Docker Swarm](#docker-swarm)
-
+```sh
+$ choco install kubernetes-cli
+```
 
 <br>
 
-### Docker Daemon
+Revisar la versión de kubectl
 
-Es el principal proceso de Docker. Se ejecuta en el host principal y el usuario no tiene interacción directa con el demonio, sino a través del cliente.
-
-
-### Docker Client
-
-Acepta la ejecución de comandos provenientes del usuario y los comunica con el demonio de Docker mediante la interface de línea de comandos.
-
-
-### Docker Image
-
-Las imágenes son templates que contienen toda la data que se requiere para hacer correr un contenedor.
-Las imágenes están disponibles en https://hub.docker.com/, a su vez, se pueden crear imágenes propias y publicarlas en la misma página o utilizarlas localmente.
-Más información sobre [Docker Image](/Docker/Imagenes.md)
-
-
-### Docker Hub
-
-Es la plataforma oficial, la cual ofrece un repositorio centralizado para compartir y administrar imágenes de Docker.
-
-
-### Dockerfile
-
-Es un archivo que contiene toda la información para crear una imagen. El archivo es de texto plano y sigue una secuencia de comandos declarados comenzando por la sentencia "FROM".
-
-
-### Docker Container
-
-Contiene todo lo necesario para que una aplicación pueda ejecutarse. Los contenedores se crean a partir de una imagen de Docker.
-
-
-### Docker Registry
-
-Sirve para almacenar las imágenes de los contenedores que hemos creado, ya sea, de forma pública o privada.
-
-
-### Docker Swarm
-
-Se utiliza para implementar un contenedor Docker en un entorno clusterizado.
-
-***
+```sh
+$ kubectl version
+```
+>**Nota:** Aquí información sobre [Instalación chocolatey](https://chocolatey.org/install)
 
 <br>
 
-### **Comandos Docker** [<kbd>&#9193;</kbd>](/Comandos.md)
+### Windows (binario)
+
+Descargar el binario kubectl.exe
+
+```sh
+$ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/windows/amd64/kubectl.exe
+```
+
