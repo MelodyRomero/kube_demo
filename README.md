@@ -1,4 +1,6 @@
-# Kubernetes
+![kubernetes](images/kubernetes.png)
+
+<br>
 
 - [Kubectl](#kubectl)
   - [Syntaxis](#syntaxis)
