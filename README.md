@@ -10,7 +10,7 @@
   - [Linux (Centos/RHEL/Fedora)](#linux-centosrhelfedora)
   - [Linux (Debian)](#linux-debian)
   - [Linux (binario)](#linux-binario)
-
+- [Kubernetes Conceptos](/Conceptos.md)
 
 ## Kubectl
 
@@ -119,3 +119,9 @@ Descargar binario kubectl
 ```sh
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 ```
+
+<br>
+
+---
+
+[Kubernetes Conceptos](/Conceptos.md)
