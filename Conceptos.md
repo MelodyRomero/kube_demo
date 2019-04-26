@@ -168,7 +168,7 @@ spec:
 
 ## Persistent Volume
 
-Es una porción de storage que el administrador del cluster Kubernetes otorga al usuario. Es un volumen que se puede utilizar en los despliegues y tiene un ciclo de vida definido. Más información sobre [PersistenVolumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+PV es una porción de storage que el administrador del cluster Kubernetes otorga al usuario. Es un volumen que se puede utilizar en los despliegues y tiene un ciclo de vida definido. Más información sobre [PersistenVolumes y PersistenVolumesClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
 <br>
 
@@ -181,13 +181,23 @@ DELETE| Se elimina tanto el PV como el espacio en disco previamente provisionado
 
 <br>
 
+### Método de Acceso
+
+Tipo | Acrónimo | Definición
+---|---|---
+ReadWriteOnce | RWO | El volumen puede ser montado en modo `lectura-escritura` sólo por un nodo
+ReadOnlyMany | ROX | El volumen puede ser montado en modo `sólo lectura` por varios nodos
+ReadWriteMany | RWX | El volumen puede ser montado en modo `lectura-escritura` por varios nodos
+
+<br>
+
 ### Estructura de un Persistent Volume
 
 ```yaml
 apiVersion: v1
 kind: PersistentVolume ----> Tipo de objeto o recurso
 metadata:
-  name: qa-jenkins-home ----> Nombre del PeristentVolume
+  name: pv-test ----> Nombre del PeristentVolume
 spec:
   accessModes:
   - ReadWriteOnce ----> Tipo de acceso
@@ -202,8 +212,61 @@ spec:
     server: 172.17.0.2 ----> Servidor Storage
 ```
 
+<br>
+
 ---
 
 ## Persistent Volume Claim
 
-Es el espacio que el usuario solicita para ser asignado a uno o más pods.
+PVC es el espacio que el usuario solicita para ser asignado a uno o más pods. Está unido a un `persistentvolume` por su `selector` o indicando el nombre del `PV`. Más información sobre [PersistenVolumes y PersistenVolumesClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+
+<br>
+
+### Estructura de un Persistent Volume Claim
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim ----> Tipo de objeto o recurso
+metadata:
+  name: pvc-test ----> Nombre del PeristentVolumeClaim
+spec:
+  accessModes:
+  - ReadWriteOnce ----> Tipo de acceso
+  resources:
+    requests:
+      storage: 2Gi ----> Tamaño requerido
+  volumeName: pv-test ----> Nombre del PV a asociar
+```
+
+<br>
+
+---
+
+## Ingress
+
+Es el objeto API que gestiona el acceso a los servicios de un cluster mediante reglas. Negocia la comunicación del usuario con un servicio dentro del cluster Kubernetes. Más información sobre [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+
+<br>
+
+![Ingress](/images/ingress.png)
+
+<br>
+
+### Estructura de un Ingress
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress ----> Tipo de objeto o recurso
+metadata:
+  name: my-ingress ----> Nombre del ingress
+spec:
+  rules:
+  - host: my-dns-url.cencosud.corp ----> DNS de acceso usuario
+    http:
+      paths:
+      - backend:
+          serviceName: my-service ----> Nombre del servicio a acceder
+          servicePort: 80 ----> Puerto a exponer 
+        path: /
+```
+
