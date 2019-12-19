@@ -4,7 +4,7 @@
 
 Docker es un proyecto Opensource que permite desplegar aplicaciones en contenedores. Gestiona la creación y administración de contenedores.
 
-<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/docker.png" width="500" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/coneking/kube_demo/dia1/images/docker.png" width="500" /></p>
 
 <br>
 
@@ -13,7 +13,7 @@ Docker es un proyecto Opensource que permite desplegar aplicaciones en contenedo
 Los contenedores son una tecnología de virtualización que se basa en la ejecución de instancias de sistemas operativos desde un servidor (host) físico.
 Los contenedores utilizan las librerías, binarios, dependencias y recursos del host local. Usan una imagen base para su creación.
 
-<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/container.png" width="500" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/coneking/kube_demo/dia1/images/container.png" width="500" /></p>
 
 <br>
 
@@ -26,7 +26,7 @@ Los contenedores utilizan las librerías, binarios, dependencias y recursos del 
 Los contenedores a diferencia de las máquinas virtuales corren bajo un sólo kernel, el del host donde se están ejecutando, así como sus binarios y librerías.
 Por otra parte, las máquinas virtuales necesitan la instalación de un Sistema Operativo por cada una de ellas, además de algún Hypervisor que soporte multiples kernel para cada máquina virtual.
 
-<p align="center"><img src="http://gitlab.cencosud.corp/SConejer/charla_kube/raw/dia1/images/vm-vs-container.png" width="500" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/coneking/kube_demo/dia1/images/vm-vs-container.png" width="500" /></p>
 
 <br>
 
