@@ -77,7 +77,7 @@ $ kubectl version
 Descargar binario kubectl.exe
 
 ```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/windows/amd64/kubectl.exe
+$ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/windows/amd64/kubectl.exe
 ```
 
 <br>

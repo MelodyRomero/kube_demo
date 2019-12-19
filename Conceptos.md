@@ -261,7 +261,7 @@ metadata:
   name: my-ingress ----> Nombre del ingress
 spec:
   rules:
-  - host: my-dns-url.cencosud.corp ----> DNS de acceso usuario
+  - host: my-dns-url.example.com ----> DNS de acceso usuario
     http:
       paths:
       - backend:

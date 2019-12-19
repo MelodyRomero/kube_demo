@@ -11,7 +11,7 @@ Se encarga del despliegue, la mantención y la escalabilidad de las aplicaciones
 
 ---
 @title[Historia]
-<p align="center"><img src="http://gitlab/SConejer/charla_kube/raw/dia3/images/googlelogo.png" width="500" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/coneking/kube_demo/dia3/images/googlelogo.png" width="500" /></p>
 
 Desarrollado originalmente por Google en 2014 y liberado en el 2015 para la Cloud Native Computing Foundation es actualmente utilizado por grandes compañías como **Redhat**, **IBM**, **CoreOS**, **SAP** entre otras.
 
@@ -19,7 +19,7 @@ Desarrollado originalmente por Google en 2014 y liberado en el 2015 para la Clou
 @title[Kubectl]
 ## Comando Kubectl
 
-Para administrar Kubernetes utilizamos el comando **kubectl**, el cual interactúa con el cluster Kubernetes.
+Para administrar Kubernetes utilizamos el comando **kubectl**, el cual interactúa con la api del cluster Kubernetes.
 <br>
 
 **Sintaxis:**
@@ -92,7 +92,7 @@ yum install -y kubectl
 
 Descargar el binario kubectl
 ```
-curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
 
 chmod +x ./kubectl
 
@@ -278,7 +278,7 @@ nginx-deployment-test-6c54bd5869   2         2         2         4h
 Es el objeto API que gestiona el acceso a los servicios de un cluster mediante reglas.
 Negocia la comunicación del usuario con un servicio dentro del cluster Kubernetes.
 
-<p align="center"><img src="http://gitlab/SConejer/charla_kube/raw/dia3/images/ingress.png" width="500" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/coneking/kube_demo/dia3/images/ingress.png" width="500" /></p>
 
 +++
 @title[Ejemplo Ingress]
@@ -292,7 +292,7 @@ metadata:
   name: my-ingress ----> Nombre del ingress
 spec:
   rules:
-  - host: my-dns-url.cencosud.corp ----> DNS de acceso usuario
+  - host: my-dns-url.example.com ----> DNS de acceso usuario
     http:
       paths:
       - backend:
