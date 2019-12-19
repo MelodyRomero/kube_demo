@@ -1,4 +1,4 @@
-# Charla Kubernetes
+# Capacitación Kubernetes
 
 Links de las presentaciones a continuación
 
