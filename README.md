@@ -2,18 +2,15 @@
 
 Links de las presentaciones a continuación
 
-[Día1](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia1)
+[Día1](http://gitpitch.com/coneking/kube_demo/dia1)
 <br>
-[Día2](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia2)
+[Día2](http://gitpitch.com/coneking/kube_demo/dia2)
 <br>
-[Día3](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia3)
+[Día3](http://gitpitch.com/coneking/kube_demo/dia3)
 <br>
-[Día4](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia4)
+[Día4](http://gitpitch.com/coneking/kube_demo/dia4)
 <br>
-[Día5](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia5)
+[Día5](http://gitpitch.com/coneking/kube_demo/dia5)
 <br>
-[Día6](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia6)
+[Día6](http://gitpitch.com/coneking/kube_demo/dia6)
 <br>
-[Día7](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia7)
-<br>
-[Día8](http://ops-gitpitch.cencosud.corp/sconejer/charla_kube/dia8)
