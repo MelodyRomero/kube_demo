@@ -64,7 +64,7 @@ kubectl version
 
 Descargar el binario kubectl.exe
 ```
-curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/windows/amd64/kubectl.exe
 ```
 
 ---
@@ -140,7 +140,7 @@ Puede estar compuesta de uno o más contenedores.
 Ejemplo Pod
 
 ```yaml
-apiVersion: apps/v1
+apiVersion: v1
 kind: Pod ----> Tipo de objeto o recurso
 metadata:
   name: my-app ----> Nombre del pod
