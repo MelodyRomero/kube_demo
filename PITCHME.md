@@ -80,6 +80,25 @@ Se encarga de realizar `forwarding` de conexiones TCP o UDP para exponer Service
 Más información sobre [Conceptos Kubernetes](https://kubernetes.io/docs/concepts/)
 
 ---
+@title[Práctica1]
+# Práctica Despliegue MySql
+
+- Crear Namespace |
+- Crear Secret |
+- Crear PersistentVolumeClaim |
+- Crear Deployment |
+- Crear Service |
+
+---
+@title[Práctica2]
+# Práctica Despliegue Wordpress
+
+- Crear PersistentVolumeClaim |
+- Crear Deployment |
+- Crear Service |
+- Crear Ingress |
+
+---
 @title[Gracias]
 
 # GRACIAS
