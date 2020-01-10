@@ -1,127 +1,89 @@
-![kubernetes](images/kubernetes.png)
+# Límites 
+
+Cuando un Pod es creado en un cluster k8s, utiliza una cierta cantidad de recursos (dependiendo de la aplicación desplegada). Los recursos en kubernetes son determinados por CPU y Memoria de cada nodo worker, por lo que, un Pod que especifique una cierta cantidad de recursos a utilizar hará que el cluster tome mejores decisiones al momento de desplegar la aplicación.
 
 <br>
 
-- [Kubectl](#kubectl)
-  - [Syntaxis](#syntaxis)
-- [Instalación Kubectl](#instalacion-kubectl)
-  - [Windows (chocolatey)](#windows-chocolatey)
-  - [Windows (binario)](#windows-binario)
-  - [Linux (Centos/RHEL/Fedora)](#linux-centosrhelfedora)
-  - [Linux (Debian)](#linux-debian)
-  - [Linux (binario)](#linux-binario)
-- [Kubernetes Conceptos](/Conceptos.md)
+## Límites de un deploy
 
-## Kubectl
+En el apartado `resources`, dentro de `containers`, es donde se deben configurar los requerimientos y límites de un contenedor.
+En k8s los requerimientos y límites que se pueden configurar son de CPU y Memoria.
 
-Para administrar Kubernetes utilizamos el comando `kubectl`, el cual interactúa con el cluster Kubernetes.
-Más información sobre el comando [Kubectl](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
+### Ejemplo
 
-### Syntaxis
-
-```sh
-$ kubectl [command] [TYPE] [NAME] [flags]
+```yaml
+  resources:
+    limits:
+      cpu: 1
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 256Mi
 ```
 <br>
 
-Ejemplo
+### Medición
 
-Listar los nodos del cluster
+- **CPU:** Se mide en milicores, donde 1000 milicores (1000m) es una CPU de un nodo. También se puede especificar como `1` para indicar que se usará una CPU completa o `"0.5"` para indicar que se usará la mitad de una CPU.
 
-```sh
-$ kubectl get nodes
-NAME           STATUS                     ROLES     AGE       VERSION
-nodo1          Ready,SchedulingDisabled   master    20d       v1.10.2
-nodo2          Ready                      worker    20d       v1.10.2
-nodo3          Ready                      worker    20d       v1.10.2
-```
+- **Memoria:** Se mide en Kibibit (Ki), Mebibyte (Mi) o Gibibyte (Gi), etc.
+>Más información [International System of Units](http://physics.nist.gov/cuu/Units/binary.html)
 
 <br>
 
-Listar los pods del namespace `default`
+## Ejemplo de límite de un deploy
 
-```sh
-$ kubectl get pods
-NAME                           READY   STATUS    RESTARTS   AGE
-golang-test-7759c599dc-x4f66   1/1     Running   0          22h
-hello-56d89fcd87-rgrs7         1/1     Running   0          22h
-```
-
-<br>
-
----
-
-## Instalación Kubectl
-
-### Windows (chocolatey)
-
-Ejecutar desde PowerShell o CMD
-
-```sh
-$ choco install kubernetes-cli
-```
-
-<br>
-
-Revisar la versión de kubectl
-
-```sh
-$ kubectl version
-```
->**Nota:** Aquí información sobre [Instalación chocolatey](https://chocolatey.org/install)
-
-<br>
-
-### Windows (binario)
-
-Descargar binario kubectl.exe
-
-```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/windows/amd64/kubectl.exe
+```yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  namespace: prueba
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      environment: test
+  template:
+    metadata:
+      labels:
+        app: nginx
+        environment: test
+    spec:
+      containers:
+      - image: nginx:1.7.9
+        name: web-app
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: --> Aquí se debe aplicar el límite del contenedor
+          limits: --> Máximo a utiliza por el contendor
+            cpu: 200m --> Máximo uso de CPU
+            memory: 128Mi --> Máximo uso de Memoria
+          requests:
+            cpu: 100m --> CPU requerida para iniciar el contendor
+            memory: 64Mi --> Memoria requerida para iniciar el contendor
 ```
 
 <br>
 
-### Linux (Centos/RHEL/Fedora)
+### Requests
 
-```sh
-$ cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
+En el parámetro `requests` se especifica cuanto es lo que necesita un contenedor para poder deployarse en un nodo. <br>
+En el ejemplo anterior se indica que para deployar la aplicación *nginx* se necesita que el Nodo donde se ejecute el POD tenga por lo menos un `10% de CPU (100m)` y `64 MB de Memoria (64Mi)` libres. <br>
 
-$ yum install -y kubectl
-```
+>**Nota:** Si el Nodo no tiene disponible lo solicitado en el apartado `requests`, este no se podrá crear.
 
 <br>
 
-### Linux (Debian)
+### Limits
 
-```sh
-$ sudo apt-get update && sudo apt-get install -y apt-transport-https
-$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-$ echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-$ sudo apt-get update
-$ sudo apt-get install -y kubectl
-```
+En el parámetro `limits` se especifica hasta que punto puede llegar a crecer un contenedor, indicando un máximo de uso de CPU y/o Memoria.<br>
+En el ejemplo anterior se indica que el límite de uso de del contenedor *nginx* será de un 20% de CPU (200m) y 128 Mb de Memoria (128Mi).
+
+>**Nota:** Se debe tener en cuenta que si no se especifica un límite, la aplicación puede llegar a consumir la totalidad de recursos de un nodo.
 
 <br>
 
-### Linux (binario)
-
-Descargar binario kubectl
-
-```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-```
-
-<br>
-
----
-
-[Kubernetes Conceptos](/Conceptos.md)
+## [Cuotas por Namespace](/Quotas_Namespace.md)
