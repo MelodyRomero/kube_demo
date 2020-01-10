@@ -34,7 +34,7 @@ En k8s los requerimientos y límites que se pueden configurar son de CPU y Memor
 ## Ejemplo de límite de un deploy
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deploy
