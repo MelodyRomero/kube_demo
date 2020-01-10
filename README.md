@@ -10,10 +10,10 @@ La infraestructura base del cluster de Kubernetes se compone de un servidor prin
 
 Sus componentes principales son:
 
-- ETCD
-- APIServer
-- Scheduler
-- Controller-Manager
+- [ETCD](#ETCD)
+- [APIServer](#apiserver)
+- [Scheduler](#scheduler)
+- [Controller-Manager](#controller-manager)
 
 Estos componentes toman las decisiones sobre el cluster.
 
@@ -61,7 +61,11 @@ Cada uno de estos _loops_ corresponden al estado deseado de algún recurso de ku
 
 Son servidores que alojan los despliegues de aplicación. Son administrados por el servidor Master.
 Los Workers son servidores que deben tener gran cantidad de recursos para alojar aplicaciones (máximo 110 pods). Estos nodos pueden ser facilmente reemplazados en el cluster Kubernetes y también pueden ser asignados para aplicaciones específicas.
-Se componen de los servicios `kubelet`, `container runtime` y `proxy`.
+Se componen de los siguientes servicios:
+
+- [Kubelet](#kubelet)
+- [Container runtime](#container-runtime)
+- [Proxy](#proxy)
 
 <br>
 
