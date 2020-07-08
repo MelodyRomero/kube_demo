@@ -141,17 +141,17 @@ Ejemplo Pod
 
 ```yaml
 apiVersion: v1
-kind: Pod ----> Tipo de objeto o recurso
+kind: Pod #----> Tipo de objeto o recurso
 metadata:
-  name: my-app ----> Nombre del pod
+  name: my-pod #----> Nombre del pod
   labels:
     app: nginx
 spec:
-  containers: ----> El/los contenedores del pod
-  - name: nginx ----> Nombre del contenedor
-    image: nginx:1.10.2 ----> Imagen del contenedor
+  containers: #----> El/los contenedores del pod
+  - name: nginx #----> Nombre del contenedor
+    image: nginx:1.10.2 #----> Imagen del contenedor
     ports:
-     - containerPort: 80 ----> Puerto del contenedor
+     - containerPort: 80 #----> Puerto del contenedor
 ```
 
 ---
@@ -168,16 +168,16 @@ Ejemplo Service
 
 ```yaml
 apiVersion: v1
-kind: Service ----> Tipo de objeto o recurso
+kind: Service #----> Tipo de objeto o recurso
 metadata:
-  name: my-service ----> Nombre del servicio
+  name: my-service #----> Nombre del servicio
 spec:
   selector:
-    app: my-app
+    app: nginx
   ports:
-  - protocol: TCP ----> Protocolo a usar
-    port: 80 ----> Puerto a exponer
-    targetPort: 80 ----> Puerto del pod
+  - protocol: TCP #----> Protocolo a usar
+    port: 80 #----> Puerto a exponer
+    targetPort: 80 #----> Puerto del pod
 ```
 
 ---
@@ -193,13 +193,13 @@ Ejemplo Deployment
 
 ```yaml
 apiVersion: apps/v1
-kind: Deployment ----> Tipo de objeto o recurso
+kind: Deployment #----> Tipo de objeto o recurso
 metadata:
-  name: nginx-deployment ----> Nombre del despliegue
+  name: nginx-deployment #----> Nombre del despliegue
   labels:
     app: nginx
 spec:
-  replicas: 1 ----> Cantidad de replicas
+  replicas: 1 #----> Cantidad de replicas
   selector:
     matchLabels:
       app: nginx
@@ -208,11 +208,11 @@ spec:
       labels:
         app: nginx
     spec:
-      containers: ----> El/los contenedores del pod
-      - name: nginx ----> Nombre del contenedor
-        image: nginx:1.10.2 ----> Imagen del contenedor
+      containers: #----> El/los contenedores del pod
+      - name: nginx #----> Nombre del contenedor
+        image: nginx:1.10.2 #----> Imagen del contenedor
         ports:
-        - containerPort: 80 ----> Puerto del contenedor
+        - containerPort: 80 #----> Puerto del contenedor
 ```
 
 ---
@@ -239,21 +239,21 @@ Ejemplo PV
 
 ```yaml
 apiVersion: v1
-kind: PersistentVolume ----> Tipo de objeto o recurso
+kind: PersistentVolume #----> Tipo de objeto o recurso
 metadata:
-  name: qa-jenkins-home ----> Nombre del PeristentVolume
+  name: qa-jenkins-home #----> Nombre del PeristentVolume
 spec:
   accessModes:
-  - ReadWriteOnce ----> Tipo de acceso
+  - ReadWriteOnce #----> Tipo de acceso
   capacity:
-    storage: 2Gi ----> Tamaño asignado
-  persistentVolumeReclaimPolicy: Retain ----> Política de reclamación
-  mountOptions: ----> Opciones de monataje
+    storage: 2Gi #----> Tamaño asignado
+  persistentVolumeReclaimPolicy: Retain #----> Política de reclamación
+  mountOptions: #----> Opciones de monataje
     - hard
     - nfsvers=3
   nfs: 
-    path: /mnt ----> Punto de montaje de storage
-    server: 172.17.0.2 ----> Servidor Storage
+    path: /mnt #----> Punto de montaje de storage
+    server: 172.17.0.2 #----> Servidor Storage
   
 ```
 
@@ -264,7 +264,7 @@ spec:
 Es un controlador de replicación. Se basa en su estado `deseado` para mantener uno o más pod activos.
 Es creado en el recurso `Deployment`.
 <br>
-Ejemplo 2 ReplicaSets
+Ejemplo ReplicaSets
 ```
 $ kubectl get replicasets
 NAME                               DESIRED   CURRENT   READY     AGE
@@ -287,17 +287,17 @@ Ejemplo Ingress
 
 ```yaml
 apiVersion: extensions/v1beta1
-kind: Ingress ----> Tipo de objeto o recurso
+kind: Ingress #----> Tipo de objeto o recurso
 metadata:
-  name: my-ingress ----> Nombre del ingress
+  name: my-ingress #----> Nombre del ingress
 spec:
   rules:
-  - host: my-dns-url.example.com ----> DNS de acceso usuario
+  - host: my-dns-url.example.com #----> DNS de acceso usuario
     http:
       paths:
       - backend:
-          serviceName: my-service ----> Nombre del servicio a acceder
-          servicePort: 80 ----> Puerto a exponer 
+          serviceName: my-service #----> Nombre del servicio a acceder
+          servicePort: 80 #----> Puerto a exponer 
         path: /
 ```
 
