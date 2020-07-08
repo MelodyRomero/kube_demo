@@ -2,6 +2,21 @@
 @title[Inicio]
 
 ---
+@title[Introducción Kubernetes]
+## ¿Qué es Kubernetes?
+
+También conocido como **k8s**, es una plataforma Open-Source que permite la administración de contenedores (orquestador).
+<br>
+Se encarga del despliegue, la mantención y la escalabilidad de las aplicaciones.
+
+---
+@title[Historia]
+<p align="center"><img src="https://raw.githubusercontent.com/coneking/kube_demo/dia4/images/googlelogo.png" width="500" /></p>
+
+Desarrollado originalmente por Google en 2014 y liberado en el 2015 para la Cloud Native Computing Foundation es actualmente utilizado por grandes compañías como **Redhat**, **IBM**, **CoreOS**, **SAP** entre otras.
+
+
+---
 @title[Infraestructura]
 ## Infraestructura
 
